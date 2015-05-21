@@ -1,0 +1,18 @@
+# VDJServer Docker Orchestration
+
+vdj-webserver:
+    build: vdj-webserver
+    ports:
+        - "8080:80"
+    volumes_from:
+        - vdjserver-auth
+        - vdjserver-backbone
+    #volumes:
+    #    - logs/apache:/var/log/apache2
+    #    - logs/cakephp/error.log:/var/www/html/xsede-api-core/app/tmp/logs/error.log
+
+vdjserver-auth:
+    build: vdjserver-auth
+
+vdjserver-backbone:
+    build: vdjserver-backbone
