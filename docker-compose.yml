@@ -1,18 +1,23 @@
 # VDJServer Docker Orchestration
 
-vdj-webserver:
-    build: vdj-webserver
+
+vdjnginx:
+    build: vdjserver-nginx
     ports:
         - "8080:80"
     volumes_from:
-        - vdjserver-auth
-        - vdjserver-backbone
+        - vdjbackbone
+    volumes:
+        - /etc/pki/:/etc/pki/:ro
+    env_file: vdjserver-nginx/.env
+    #command: /bin/bash /root/nginx-config-replace.sh
     #volumes:
     #    - logs/apache:/var/log/apache2
     #    - logs/cakephp/error.log:/var/www/html/xsede-api-core/app/tmp/logs/error.log
 
-vdjserver-auth:
+vdjauth:
     build: vdjserver-auth
 
-vdjserver-backbone:
+vdjbackbone:
     build: vdjserver-backbone
+    #command: build && tail -f /var/www/html/vdjserver/backbone/package.json #cd /var/www/html/vdjserver-backbone && /usr/local/bin/grunt --gruntfile /vdjserver-backbone/Gruntfile.js build
