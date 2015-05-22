@@ -1,6 +1,5 @@
 # VDJServer Docker Orchestration
 
-
 vdjnginx:
     build: vdjserver-web-nginx
     env_file: .env
@@ -13,9 +12,7 @@ vdjnginx:
         - vdjbackbone
     volumes:
         - /etc/pki/:/etc/pki/:ro
-    #volumes:
-    #    - logs/apache:/var/log/apache2
-    #    - logs/cakephp/error.log:/var/www/html/xsede-api-core/app/tmp/logs/error.log
+        - /var/log/vdjserver-web/vdjserver-web-nginx/:/var/log/nginx/persistent/
 
 vdjapi:
     build: vdjserver-web-api
@@ -24,6 +21,7 @@ vdjapi:
         - "8443"
     volumes:
         - /etc/pki/:/etc/pki/:ro
+        - /var/log/vdjserver-web/vdjserver-web-api:/vdjserver-web-api/logs
 
 vdjbackbone:
     build: vdjserver-web-backbone
