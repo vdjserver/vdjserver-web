@@ -2,22 +2,29 @@
 
 
 vdjnginx:
-    build: vdjserver-nginx
+    build: vdjserver-web-nginx
     ports:
-        - "8080:80"
+        - "80:80"
+        - "443:443"
     volumes_from:
         - vdjbackbone
     volumes:
         - /etc/pki/:/etc/pki/:ro
-    env_file: vdjserver-nginx/.env
+    env_file: vdjserver-web-nginx/.env
     #command: /bin/bash /root/nginx-config-replace.sh
     #volumes:
     #    - logs/apache:/var/log/apache2
     #    - logs/cakephp/error.log:/var/www/html/xsede-api-core/app/tmp/logs/error.log
+    links:
+        - vdjapi
 
-vdjauth:
-    build: vdjserver-auth
+vdjapi:
+    build: vdjserver-web-api
+    volumes:
+        - /etc/pki/:/etc/pki/:ro
+    expose:
+        - "8443"
 
 vdjbackbone:
-    build: vdjserver-backbone
+    build: vdjserver-web-backbone
     #command: build && tail -f /var/www/html/vdjserver/backbone/package.json #cd /var/www/html/vdjserver-backbone && /usr/local/bin/grunt --gruntfile /vdjserver-backbone/Gruntfile.js build
