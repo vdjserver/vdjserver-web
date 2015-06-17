@@ -7,3 +7,6 @@
 [submodule "vdjserver-web-nginx"]
 	path = vdjserver-web-nginx
 	url = git@bitbucket.org:vdjserver/vdjserver-web-nginx.git
+[submodule "vdjserver-web-redis"]
+	path = vdjserver-web-redis
+	url = git@bitbucket.org:vdjserver/vdjserver-web-redis.git

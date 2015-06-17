@@ -1,6 +1,6 @@
 # VDJServer Docker Orchestration
 
-vdjnginx:
+nginx:
     build: vdjserver-web-nginx
     env_file: .env
     links:
@@ -14,11 +14,18 @@ vdjnginx:
         - /etc/pki/:/etc/pki/:ro
         - /var/log/vdjserver-web/vdjserver-web-nginx/:/var/log/nginx/persistent/
 
+redis:
+    build: vdjserver-web-redis
+    expose:
+        - "6379"
+
 vdjapi:
     build: vdjserver-web-api
     env_file: .env
     expose:
         - "8443"
+    links:
+        - redis
     volumes:
         - /etc/pki/:/etc/pki/:ro
         - /var/log/vdjserver-web/vdjserver-web-api:/vdjserver-web-api/logs
