@@ -5,6 +5,7 @@ nginx:
     env_file: .env
     links:
         - vdjapi
+    log_driver: "syslog"
     ports:
         - "80:80"
         - "443:443"
@@ -12,12 +13,12 @@ nginx:
         - vdjbackbone
     volumes:
         - /etc/pki/:/etc/pki/:ro
-        - /var/log/vdjserver-web/vdjserver-web-nginx/:/var/log/nginx/persistent/
 
 redis:
     build: vdjserver-web-redis
     expose:
         - "6379"
+    log_driver: "syslog"
 
 vdjapi:
     build: vdjserver-web-api
@@ -26,9 +27,10 @@ vdjapi:
         - "8443"
     links:
         - redis
+    log_driver: "syslog"
     volumes:
         - /etc/pki/:/etc/pki/:ro
-        - /var/log/vdjserver-web/vdjserver-web-api:/vdjserver-web-api/logs
 
 vdjbackbone:
     build: vdjserver-web-backbone
+    log_driver: "syslog"
