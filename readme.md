@@ -17,9 +17,9 @@ NOTE: the development and staging instances are currently using docker, but prod
 
 VDJServer is currently composed of 3 separate components that have been added to this repository as submodules:
 
- * [vdjserver-web-api]<https://bitbucket.org/vdjserver/vdjserver-web-api/>: a node.js API service that serves as middleware for VDJ clients and Agave.
- * [vdjserver-web-backbone]<https://bitbucket.org/vdjserver/vdjserver-web-backbone/>: a web application that end users can interact with.
- * [vdjserver-web-nginx]<https://bitbucket.org/vdjserver/vdjserver-web-nginx/>: a webserver configured for vdj API/webapp needs.
+ * [vdjserver-web-api](https://bitbucket.org/vdjserver/vdjserver-web-api/): a node.js API service that serves as middleware for VDJ clients and Agave.
+ * [vdjserver-web-backbone](https://bitbucket.org/vdjserver/vdjserver-web-backbone/): a web application that end users can interact with.
+ * [vdjserver-web-nginx](https://bitbucket.org/vdjserver/vdjserver-web-nginx/): a webserver configured for vdj API/webapp needs.
 
 All 3 components need to be deployed in order for VDJServer to function properly.
 
