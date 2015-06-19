@@ -44,7 +44,7 @@ They can be copied from their default templates:
 
 The agaveSettings.js file will need WSO2 app and key information, in addition to service account information. These values are considered to be confidential and are available via stache. Please see a VDJ project team member for access.
 
-** Configuring vdjserver-web-backbone**
+**Configuring vdjserver-web-backbone**
 
 There is only one file that needs to be set up for the backbone app to function properly:
 
@@ -84,9 +84,11 @@ adfecbce3e55        vdjserverweb_vdjapi:latest   "/bin/sh -c '/usr/bi   32 minut
 ###Non-Dockerized instances (production)
 
 **Nginx**
+
 Production uses a version of nginx that has been installed via yum. Its configuration is located /etc/nginx/nginx.conf.
 
 **Backbone**
+
 Backbone on production has been deployed at /var/www/html/vdjserver-backbone/.
 It is served out of /var/www/html/vdjserver-backbone/live-site, and can be built via a standard grunt build process as follows:
 
@@ -98,6 +100,7 @@ It is served out of /var/www/html/vdjserver-backbone/live-site, and can be built
 Once a new build has completed, grunt will automatically rotate builds as needed. It will move the old build into live-site-backup and place the new build into live-site so it can be served immediately.
 
 **API**
+
 The VDJ API on production has been deployed at /var/www/node/vdjserver-auth/.
 It is a small node.js program that uses forever.js for persistence. There is a small script in place for starting/restarting the VDJ API as follows:
 
