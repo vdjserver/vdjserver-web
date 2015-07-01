@@ -19,6 +19,8 @@ redis:
     expose:
         - "6379"
     log_driver: "syslog"
+    volumes:
+        - vdjserver-web-redis/data:/data
 
 vdjapi:
     build: vdjserver-web-api
