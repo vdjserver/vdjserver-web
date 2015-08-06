@@ -10,3 +10,6 @@
 [submodule "vdjserver-web-redis"]
 	path = vdjserver-web-redis
 	url = git@bitbucket.org:vdjserver/vdjserver-web-redis.git
+[submodule "vdjml"]
+	path = vdjml
+	url = git@bitbucket.org:vdjserver/vdjml.git
