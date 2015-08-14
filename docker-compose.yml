@@ -11,6 +11,7 @@ nginx:
         - "443:443"
     volumes_from:
         - vdjbackbone
+        - vdjml
     volumes:
         - /etc/pki/:/etc/pki/:ro
 
@@ -35,4 +36,8 @@ vdjapi:
 
 vdjbackbone:
     build: vdjserver-web-backbone
+    log_driver: "syslog"
+
+vdjml:
+    build: vdjml
     log_driver: "syslog"
