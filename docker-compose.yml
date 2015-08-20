@@ -15,13 +15,13 @@ nginx:
     volumes:
         - /etc/pki/:/etc/pki/:ro
 
-redis:
-    build: vdjserver-web-redis
-    expose:
-        - "6379"
-    log_driver: "syslog"
-    volumes:
-        - vdjserver-web-redis/data:/data
+#redis:
+#    build: vdjserver-web-redis
+#    expose:
+#        - "6379"
+#    log_driver: "syslog"
+#    volumes:
+#        - vdjserver-web-redis/data:/data
 
 vdjapi:
     build: vdjserver-web-api
