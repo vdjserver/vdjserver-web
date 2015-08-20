@@ -28,8 +28,8 @@ vdjapi:
     env_file: .env
     expose:
         - "8443"
-    links:
-        - redis
+    #links:
+    #    - redis
     log_driver: "syslog"
     volumes:
         - /etc/pki/:/etc/pki/:ro
