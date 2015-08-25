@@ -6,7 +6,6 @@ Requires=docker.service
 
 [Service]
 Restart=always
-ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml build
 ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml stop
 ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml rm --force
 ExecStart=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml up
