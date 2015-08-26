@@ -7,19 +7,18 @@ VDJServer is a next generation immune repertoire analysis portal and platform.
 
  * Development: <https://vdj-dev.tacc.utexas.edu>
  * Staging: <https://vdj-staging.tacc.utexas.edu>
- * Production: <https://vdjserver.org>
+ * Production: https://vdj-prod.tacc.utexas.edu -> <https://vdjserver.org>
 
 In general, the development instance is meant for testing new features that are not ready to be released yet. The staging instance is meant to test upcoming releases/features that are considered to be stable.
 
-NOTE: the development and staging instances are currently using docker, but production has not migrated to docker yet as of 19/June/2015.
-
 ##Components
 
-VDJServer is currently composed of 3 separate components that have been added to this repository as submodules:
+VDJServer is currently composed of 4 separate components that have been added to this repository as submodules:
 
  * [vdjserver-web-api](https://bitbucket.org/vdjserver/vdjserver-web-api/): a node.js API service that serves as middleware for VDJ clients and Agave.
  * [vdjserver-web-backbone](https://bitbucket.org/vdjserver/vdjserver-web-backbone/): a web application that end users can interact with.
  * [vdjserver-web-nginx](https://bitbucket.org/vdjserver/vdjserver-web-nginx/): a webserver configured for vdj API/webapp needs.
+ * [vdjml](https://bitbucket.org/vdjserver/vdjml/): documentation for the vdjml format.
 
 All 3 components need to be deployed in order for VDJServer to function properly.
 
@@ -29,20 +28,19 @@ All configuration procedures are the same for dockerized and non-dockerized vers
 
 **Configuring vdjserver-web-api**
 
-There are two files that need to be set up to run the API:
+There is one configuration file that needs to be set up to run the API:
 
- * vdjserver-web-api/app/scripts/config/agaveSettings.js
- * vdjserver-web-api/app/scripts/config/config.js
+ * vdjserver-web-api/.env
 
-They can be copied from their default templates:
+It can be copied from its default template:
 
 ```
-    $ cd vdjserver-web-api/app/scripts/config
-    $ cp agaveSettingsDefault.js agaveSettings.js
-    $ cp configDefault.js config.js
+    $ cd vdjserver-web-api/
+    $ cp .env.defaults .env
+    $ vim .env
 ```
 
-The agaveSettings.js file will need WSO2 app and key information, in addition to service account information. These values are considered to be confidential and are available via stache. Please see a VDJ project team member for access.
+The .env file will need WSO2 app and key information, in addition to service account information. These values are confidential and available via stache. Please see a VDJ project team member for access.
 
 **Configuring vdjserver-web-backbone**
 
@@ -61,13 +59,17 @@ The default values specified in the template are suitable for production, but sh
 
 ##Deployment Procedure
 
-###Dockerized instances (development and staging)
+###SSL
 
-Dockerized instances may be deployed using the supplied init.d script: vdjserver-web/host/init.d/vdjserverweb. This has already been installed on development and staging systems to /etc/init.d/vdjserverweb. It can be accessed as follows:
+VDJServer does not handle SSL certificates directly, and is currently configured to run HTTP internally on port 8080. It must be deployed behind a reverse proxy in order to allow SSL connections.
+
+###Dockerized instances (vdj-dev, vdj-staging, production)
+
+Dockerized instances may be started/stopped/restarted using the supplied systemd script: vdjserver-web/host/systemd/vdjserver.service. This has already been installed on development, staging, and production systems to /etc/systemd/systems/vdjserver.service. It can be accessed as follows:
 
 ```
-    [wscarbor@vdj-dev vdjserver-web]$ sudo service vdjserverweb
-    Usage: /etc/init.d/vdjserverweb {start|stop|restart|rebuild|rebuild-without-cache}
+    [wscarbor@vdj-dev vdjserver-web]$ sudo systemctl <ACTION> vdjserver.service
+    # <ACTION> can be either: stop, start, or restart
 ```
 
 In most cases, a simple restart command is sufficient to bring up vdjserver. The restart command will attempt to stop all running docker-compose instances, and it is generally successful. However, if it encounters any problems then you can just stop instances manually and try it again:
@@ -81,35 +83,19 @@ adfecbce3e55        vdjserverweb_vdjapi:latest   "/bin/sh -c '/usr/bi   32 minut
 [wscarbor@vdj-dev vdjserver-web]$ sudo docker stop fdc
 ```
 
-###Non-Dockerized instances (production)
-
-**Nginx**
-
-Production uses a version of nginx that has been installed via yum. Its configuration is located /etc/nginx/nginx.conf.
-
-**Backbone**
-
-Backbone on production has been deployed at /var/www/html/vdjserver-backbone/.
-It is served out of /var/www/html/vdjserver-backbone/live-site, and can be built via a standard grunt build process as follows:
+It is also important to note that the systemd vdjserver.service command will not rebuild new container instances. If you need to build/rebuild a new set of containers, then you will need to start the command manually as follows:
 
 ```
-    $ cd /var/www/html/vdjserver-backbone
-    $ grunt build
+    [wscarbor@vdj-dev vdjserver-web]$ sudo docker-compose build
 ```
 
-Once a new build has completed, grunt will automatically rotate builds as needed. It will move the old build into live-site-backup and place the new build into live-site so it can be served immediately.
-
-**API**
-
-The VDJ API on production has been deployed at /var/www/node/vdjserver-auth/.
-It is a small node.js program that uses forever.js for persistence. There is a small script in place for starting/restarting the VDJ API as follows:
+After your build has completed, you can then use systemd to deploy it:
 
 ```
-    $ cd /var/www/node/vdjserver-auth
-    $ ./vdjauth-start.sh
+    [wscarbor@vdj-dev vdjserver-web]$ sudo systemctl restart vdjserver.service
 ```
 
-This script will automatically stop a currently running instance if it exists, and will immediately start a new instance with correct logging parameters.
+Systemd will only restart a running service if the "restart" command is used; remember that using the "start" command twice will not redeploy any containers.
 
 ##Development Guidelines
 
