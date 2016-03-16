@@ -4,7 +4,6 @@ nginx:
     build: vdjserver-web-nginx
     links:
         - vdjapi
-    log_driver: "syslog"
     ports:
         - "8080:8080"
     volumes_from:
@@ -16,14 +15,11 @@ vdjapi:
     env_file: ./vdjserver-web-api/.env
     expose:
         - "8081"
-    log_driver: "syslog"
     volumes:
         - ./vdjserver-web-api/redis:/vdjserver-web-api/redis
 
 vdjbackbone:
     build: vdjserver-web-backbone
-    log_driver: "syslog"
 
 vdjml:
     build: vdjml
-    log_driver: "syslog"

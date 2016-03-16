@@ -97,6 +97,21 @@ After your build has completed, you can then use systemd to deploy it:
 
 Systemd will only restart a running service if the "restart" command is used; remember that using the "start" command twice will not redeploy any containers.
 
+
+**Docker Compose Files**
+
+There are two docker-compose files: one for general use ("docker-compose.yml"), and one that has been adjusted for use in a production environment ("docker-compose.prod-override.yml"). These files are meant to be overlayed and used together in a production environment: https://docs.docker.com/compose/extends/#different-environments
+
+Using the production config will send all log information to syslog.
+
+Example of using the production overlayed config:
+```
+docker-compose -f docker-compose.yml -f docker-compose.prod-override.yml build
+
+docker-compose -f docker-compose.yml -f docker-compose.prod-override.yml up
+```
+
+
 ##Development Guidelines
 
 **Code Style**

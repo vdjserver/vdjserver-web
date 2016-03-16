@@ -6,10 +6,10 @@ Requires=docker.service
 
 [Service]
 Restart=always
-ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml stop
-ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml rm --force
-ExecStart=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml up
-ExecStop=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml stop
+ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml -f /var/www/docker/vdjserver-web/docker-compose.prod-override.yml stop
+ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml -f /var/www/docker/vdjserver-web/docker-compose.prod-override.yml rm --force
+ExecStart=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml -f /var/www/docker/vdjserver-web/docker-compose.prod-override.yml up
+ExecStop=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web/docker-compose.yml -f /var/www/docker/vdjserver-web/docker-compose.prod-override.yml stop
 
 [Install]
 WantedBy=multi-user.target
