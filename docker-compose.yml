@@ -22,4 +22,4 @@ vdjbackbone:
     build: vdjserver-web-backbone
 
 vdjml:
-    build: vdjml
+    image: vdjserver/vdjml

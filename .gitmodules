@@ -7,6 +7,3 @@
 [submodule "vdjserver-web-nginx"]
 	path = vdjserver-web-nginx
 	url = git@bitbucket.org:vdjserver/vdjserver-web-nginx.git
-[submodule "vdjml"]
-	path = vdjml
-	url = git@bitbucket.org:vdjserver/vdjml.git
