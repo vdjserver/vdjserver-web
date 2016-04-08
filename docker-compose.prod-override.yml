@@ -2,14 +2,9 @@
 
 nginx:
     log_driver: "syslog"
-    volumes_from:
-        - vdjbackbone
-        - vdjml
 
 vdjapi:
     log_driver: "syslog"
-    volumes:
-        - ./vdjserver-web-api/redis:/vdjserver-web-api/redis
 
 vdjbackbone:
     log_driver: "syslog"
