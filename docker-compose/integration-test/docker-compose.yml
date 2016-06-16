@@ -11,6 +11,7 @@ services:
             - default
         ports:
             - "8080:8080"
+            - "8090:8090"
         volumes_from:
             - vdj-backbone
             - vdjml
@@ -18,7 +19,7 @@ services:
     vdj-api:
         build: ./../../vdjserver-web-api
         container_name: vdj-api
-        env_file: ./../../vdjserver-web-api/.env
+        env_file: ./../../vdjserver-web-api/.env-test
         expose:
             - "8081"
         image: vdj-api
@@ -32,7 +33,16 @@ services:
         container_name: vdj-backbone
         image: vdj-backbone
         volumes:
-            - ./../../vdjserver-web-backbone/docker/environment-config/run:/var/www/html/vdjserver-backbone/dist/scripts/config/
+            - ./../../vdjserver-web-backbone/docker/environment-config/test:/var/www/html/vdjserver-backbone/dist/scripts/config/
+
+    vdj-backbone-test:
+        command: grunt --gruntfile /var/www/html/vdjserver-backbone/Gruntfile.js test
+        container_name: vdj-backbone-test
+        depends_on:
+            - vdj-backbone
+        image: vdj-backbone
+        volumes:
+            - ./../../vdjserver-web-backbone/docker/environment-config/test:/var/www/html/vdjserver-backbone/dist/scripts/config/
 
     vdjml:
         container_name: vdjml
