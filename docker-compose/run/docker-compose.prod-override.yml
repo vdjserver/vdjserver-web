@@ -1,0 +1,16 @@
+# VDJServer Docker Orchestration
+
+version: '2'
+
+services:
+    vdj-nginx:
+        log_driver: "syslog"
+
+    vdj-api:
+        log_driver: "syslog"
+
+    vdj-backbone:
+        log_driver: "syslog"
+
+    vdjml:
+        log_driver: "syslog"

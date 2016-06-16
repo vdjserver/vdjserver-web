@@ -1,0 +1,40 @@
+# VDJServer Docker Orchestration
+
+version: '2'
+
+services:
+    vdj-nginx:
+        build: ./../../vdjserver-web-nginx
+        container_name: vdj-nginx
+        networks:
+            - default
+        ports:
+            - "8080:8080"
+        volumes_from:
+            - vdj-backbone
+            - vdjml
+
+    vdj-api:
+        build: ./../../vdjserver-web-api
+        container_name: vdj-api
+        env_file: ./../../vdjserver-web-api/.env
+        expose:
+            - "8081"
+        networks:
+            - default
+        volumes:
+            - ./../../vdjserver-web-api/redis:/vdjserver-web-api/redis
+
+    vdj-backbone:
+        build: ./../../vdjserver-web-backbone
+        container_name: vdj-backbone
+        volumes:
+            - ./../../vdjserver-web-backbone/docker/environment-config:/var/www/html/vdjserver-backbone/dist/scripts/config/
+
+    vdjml:
+        container_name: vdjml
+        image: vdjserver/vdjml
+
+networks:
+    default:
+        driver: bridge
