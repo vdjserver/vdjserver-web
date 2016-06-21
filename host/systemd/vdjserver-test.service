@@ -1,0 +1,15 @@
+[Unit]
+Description=VDJServer Web Services - Integration Testing
+Documentation=https://bitbucket.org/vdjserver/vdjserver-web
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web-test/docker-compose/integration-test/docker-compose.yml -f /var/www/docker/vdjserver-web-test/docker-compose/integration-test/docker-compose.prod-override.yml stop
+ExecStartPre=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web-test/docker-compose/integration-test/docker-compose.yml -f /var/www/docker/vdjserver-web-test/docker-compose/integration-test/docker-compose.prod-override.yml rm --force
+ExecStart=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web-test/docker-compose/integration-test/docker-compose.yml -f /var/www/docker/vdjserver-web-test/docker-compose/integration-test/docker-compose.prod-override.yml up
+ExecStop=/usr/bin/docker-compose -f /var/www/docker/vdjserver-web-test/docker-compose/integration-test/docker-compose.yml -f /var/www/docker/vdjserver-web-test/docker-compose/integration-test/docker-compose.prod-override.yml stop
+
+[Install]
+WantedBy=multi-user.target
