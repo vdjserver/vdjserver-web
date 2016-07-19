@@ -49,6 +49,18 @@ services:
             - ./../../vdjserver-web-backbone/docker/environment-config/test:/var/www/html/vdjserver-backbone/app/scripts/config/
         working_dir: /var/www/html/vdjserver-backbone
 
+    vdj-jenkins:
+        container_name: vdj-jenkins-test
+        build: ./../../vdjserver-web-jenkins
+        image: vdj-jenkins:integration-test
+        #image: jenkins:2.7.1-alpine
+        networks:
+            - default
+        ports:
+            - "8093:8080"
+        volumes:
+            - ./../../vdjserver-web-jenkins/data:/var/jenkins_home
+
     vdjml:
         container_name: vdjml
         image: vdjserver/vdjml
