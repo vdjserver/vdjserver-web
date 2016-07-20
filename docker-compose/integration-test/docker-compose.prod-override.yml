@@ -3,9 +3,6 @@
 version: '2'
 
 services:
-    vdj-nginx:
-        logging:
-            driver: "syslog"
 
     vdj-api:
         logging:
@@ -19,6 +16,6 @@ services:
         logging:
             driver: "syslog"
 
-    vdjml:
+    vdj-jenkins:
         logging:
             driver: "syslog"
