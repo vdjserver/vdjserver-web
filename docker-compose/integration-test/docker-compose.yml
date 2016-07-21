@@ -6,7 +6,7 @@ services:
 
     vdj-api:
         build: ./../../vdjserver-web-api
-        container_name: vdj-api
+        container_name: vdj-api-test
         env_file: ./../../vdjserver-web-api/.test-env
         expose:
             - "8081"
@@ -18,7 +18,7 @@ services:
 
     vdj-backbone:
         build: ./../../vdjserver-web-backbone
-        container_name: vdj-backbone
+        container_name: vdj-backbone-base-test
         image: vdj-backbone:integration-test
         volumes:
             - ./../../vdjserver-web-backbone/docker/environment-config/test:/var/www/html/vdjserver-backbone/dist/scripts/config/
@@ -40,6 +40,7 @@ services:
     vdj-jenkins:
         container_name: vdj-jenkins-test
         build: ./../../vdjserver-web-jenkins
+        env_file: ./../../vdjserver-web-jenkins/.env
         image: vdj-jenkins:integration-test
         networks:
             - default
