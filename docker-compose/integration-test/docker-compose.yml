@@ -5,7 +5,7 @@ version: '2'
 services:
     vdj-nginx:
         build: ./../../vdjserver-web-nginx
-        container_name: vdj-nginx
+        container_name: vdjtest-nginx
         image: vdj-nginx:integration-test
         networks:
             - default
@@ -17,7 +17,7 @@ services:
 
     vdj-api:
         build: ./../../vdjserver-web-api
-        container_name: vdj-api
+        container_name: vdjtest-api
         env_file: ./../../vdjserver-web-api/.test-env
         expose:
             - "8081"
@@ -29,14 +29,14 @@ services:
 
     vdj-backbone:
         build: ./../../vdjserver-web-backbone
-        container_name: vdj-backbone
+        container_name: vdjtest-backbone
         image: vdj-backbone:integration-test
         volumes:
             - ./../../vdjserver-web-backbone/docker/environment-config/test:/var/www/html/vdjserver-backbone/dist/scripts/config/
 
     vdj-backbone-test:
         command: grunt test
-        container_name: vdj-backbone-test
+        container_name: vdjtest-backbone-test
         depends_on:
             - vdj-backbone
         image: vdj-backbone:integration-test
@@ -50,7 +50,7 @@ services:
         working_dir: /var/www/html/vdjserver-backbone
 
     vdjml:
-        container_name: vdjml
+        container_name: vdjml-test
         image: vdjserver/vdjml
 
 networks:
