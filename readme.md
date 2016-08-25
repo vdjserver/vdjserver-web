@@ -20,7 +20,7 @@ VDJServer is currently composed of 4 separate components:
  * [vdjserver-web-nginx](https://bitbucket.org/vdjserver/vdjserver-web-nginx/): a webserver configured for vdj API/webapp needs.
  * [vdjml](https://bitbucket.org/vdjserver/vdjml/): documentation for the vdjml format.
 
-All 3 components need to be deployed in order for VDJServer to function properly.
+All 4 components need to be deployed in order for VDJServer to function properly.
 
 ##Configuration Procedure
 

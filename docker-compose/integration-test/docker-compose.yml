@@ -1,0 +1,58 @@
+# VDJServer Docker Orchestration
+
+version: '2'
+
+services:
+    vdj-nginx:
+        build: ./../../vdjserver-web-nginx
+        container_name: vdjtest-nginx
+        image: vdj-nginx:integration-test
+        networks:
+            - default
+        ports:
+            - "8090:8080"
+        volumes_from:
+            - vdj-backbone
+            - vdjml
+
+    vdj-api:
+        build: ./../../vdjserver-web-api
+        container_name: vdjtest-api
+        env_file: ./../../vdjserver-web-api/.test-env
+        expose:
+            - "8081"
+        image: vdj-api:integration-test
+        networks:
+            - default
+        volumes:
+            - ./../../vdjserver-web-api/redis:/vdjserver-web-api/redis
+
+    vdj-backbone:
+        build: ./../../vdjserver-web-backbone
+        container_name: vdjtest-backbone
+        image: vdj-backbone:integration-test
+        volumes:
+            - ./../../vdjserver-web-backbone/docker/environment-config/test:/var/www/html/vdjserver-backbone/dist/scripts/config/
+
+    vdj-backbone-test:
+        command: grunt test
+        container_name: vdjtest-backbone-test
+        depends_on:
+            - vdj-backbone
+        image: vdj-backbone:integration-test
+        networks:
+            - default
+        ports:
+            - "8092:9002"
+            #- "9002:9002"
+        volumes:
+            - ./../../vdjserver-web-backbone/docker/environment-config/test:/var/www/html/vdjserver-backbone/app/scripts/config/
+        working_dir: /var/www/html/vdjserver-backbone
+
+    vdjml:
+        container_name: vdjml-test
+        image: vdjserver/vdjml
+
+networks:
+    default:
+        driver: bridge

@@ -1,9 +1,9 @@
 [submodule "vdjserver-web-api"]
 	path = vdjserver-web-api
-	url = git@bitbucket.org:vdjserver/vdjserver-web-api.git
+	url = http://git@bitbucket.org/vdjserver/vdjserver-web-api.git
 [submodule "vdjserver-web-backbone"]
 	path = vdjserver-web-backbone
-	url = git@bitbucket.org:vdjserver/vdjserver-web-backbone.git
+	url = http://git@bitbucket.org/vdjserver/vdjserver-web-backbone.git
 [submodule "vdjserver-web-nginx"]
 	path = vdjserver-web-nginx
-	url = git@bitbucket.org:vdjserver/vdjserver-web-nginx.git
+	url = http://git@bitbucket.org/vdjserver/vdjserver-web-nginx.git
