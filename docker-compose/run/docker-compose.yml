@@ -13,7 +13,7 @@ services:
             - "8080:8080"
         volumes_from:
             - vdj-backbone
-            - vdjml
+            - vdj-doc
 
     vdj-api:
         build: ./../../vdjserver-web-api
@@ -34,9 +34,9 @@ services:
         volumes:
             - ./../../vdjserver-web-backbone/docker/environment-config/run:/var/www/html/vdjserver-backbone/dist/scripts/config/
 
-    vdjml:
-        container_name: vdjml
-        image: vdjserver/vdjml
+    vdj-doc:
+        container_name: vdj-doc
+        image: vdjserver/doc
 
 networks:
     default:
