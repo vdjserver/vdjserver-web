@@ -15,6 +15,6 @@ services:
         logging:
             driver: "syslog"
 
-    vdjml:
+    vdj-doc:
         logging:
             driver: "syslog"
