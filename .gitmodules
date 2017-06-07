@@ -7,3 +7,6 @@
 [submodule "vdjserver-web-nginx"]
 	path = vdjserver-web-nginx
 	url = http://git@bitbucket.org/vdjserver/vdjserver-web-nginx.git
+[submodule "vdjserver-datasource"]
+	path = vdjserver-datasource
+	url = https://bitbucket.org/ireceptor/vdjserver-datasource.git

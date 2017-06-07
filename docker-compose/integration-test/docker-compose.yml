@@ -27,6 +27,15 @@ services:
         volumes:
             - ./../../vdjserver-web-api/redis:/vdjserver-web-api/redis
 
+    vdj-ireceptor:
+        build: ./../../vdjserver-datasource
+        container_name: vdjtest-ireceptor
+        expose:
+            - "8083"
+        image: vdj-ireceptor:integration-test
+        networks:
+            - default
+
     vdj-backbone:
         build: ./../../vdjserver-web-backbone
         container_name: vdjtest-backbone
