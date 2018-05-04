@@ -18,7 +18,7 @@ VDJServer is currently composed of 4 separate components:
  * [vdjserver-web-api](https://bitbucket.org/vdjserver/vdjserver-web-api/): a node.js API service that serves as middleware for VDJ clients and Agave.
  * [vdjserver-web-backbone](https://bitbucket.org/vdjserver/vdjserver-web-backbone/): a web application that end users can interact with.
  * [vdjserver-web-nginx](https://bitbucket.org/vdjserver/vdjserver-web-nginx/): a webserver configured for vdj API/webapp needs.
- * [vdjml](https://bitbucket.org/vdjserver/vdjml/): documentation for the vdjml format.
+ * [vdjserver-doc](https://bitbucket.org/vdjserver/vdjserver-doc/): documentation for VDJServer and associated tools.
 
 All 4 components need to be deployed in order for VDJServer to function properly.
 

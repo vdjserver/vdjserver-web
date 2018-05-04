@@ -7,6 +7,10 @@ services:
         build: ./../../vdjserver-web-nginx
         container_name: vdj-nginx
         image: vdj-nginx
+        depends_on:
+            - vdj-api
+            - vdj-backbone
+            - vdj-doc
         networks:
             - default
         ports:
