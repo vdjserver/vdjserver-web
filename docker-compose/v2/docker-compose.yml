@@ -33,8 +33,8 @@ services:
 
     vdj-backbone:
         build: ./../../vdjserver-web-backbone
-        container_name: vdj-backbone:v2-develop
-        image: vdj-backbone
+        container_name: vdj-backbone
+        image: vdj-backbone:v2-develop
         volumes:
             - ./../../vdjserver-web-backbone/docker/environment-config/run:/var/www/html/vdjserver-backbone/dist/scripts/config/
 
