@@ -6,7 +6,7 @@ services:
     vdj-nginx:
         build: ./../../vdjserver-web-nginx
         container_name: vdj-nginx
-        image: vdj-nginx
+        image: vdj-nginx:v2-develop
         depends_on:
             - vdj-api
             - vdj-backbone
