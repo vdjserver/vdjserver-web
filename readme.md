@@ -159,7 +159,7 @@ $ git clone git@bitbucket.org:vdjserver/vdjserver-web.git
 cd vdjserver-web
 
 - Clone submodules
-$ git submodule update --init
+$ git submodule update --init --recursive
 $ git submodule foreach git checkout master
 $ git submodule foreach git pull
 
