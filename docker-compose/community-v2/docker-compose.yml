@@ -45,7 +45,7 @@ services:
         container_name: vdj-community
         image: vdj-community
         volumes:
-            - ./../../vdjserver-community/docker/environment-config/run:/var/www/html/vdjserver-community/dist/scripts/config/
+            - ./../../vdjserver-community/docker/environment-config/run:/var/www/html/vdjserver-community/app/scripts/config/
 
     vdj-doc:
         container_name: vdj-doc
