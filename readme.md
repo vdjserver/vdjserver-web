@@ -13,14 +13,21 @@ In general, the development instance is meant for testing new features that are 
 
 ##Components
 
-VDJServer is currently composed of 4 separate components:
+This `v1-community-v2` branch is designed to integrate the VDJServer V1 main website with VDJServer V2 Community Data Portal.
+The two sites are essentially different web applications and cannot directly interact. The `nginx` proxies all `/community`
+URLs to VDJServer V2 CDP while all others go to VDJServer V1. Both web applications have customizations so the standard links
+can move back and forth. To accomplish this, we have `vdjserver-web-backbone` repository included as two separate git submodules, where
+`vdjserver-community` is VDJServer V2 CDP and `vdjserver-web-backbone` is VDJServer V1. Each is on a different branch.
 
- * [vdjserver-web-api](https://bitbucket.org/vdjserver/vdjserver-web-api/): a node.js API service that serves as middleware for VDJ clients and Agave.
- * [vdjserver-web-backbone](https://bitbucket.org/vdjserver/vdjserver-web-backbone/): a web application that end users can interact with.
- * [vdjserver-web-nginx](https://bitbucket.org/vdjserver/vdjserver-web-nginx/): a webserver configured for vdj API/webapp needs.
+VDJServer (V1/V2 CDP) is currently composed of 5 separate components:
+
+ * [vdjserver-web-api](https://bitbucket.org/vdjserver/vdjserver-web-api/): (branch: master or devleop) a node.js API service that serves as middleware for VDJ clients and Agave.
+ * [vdjserver-web-backbone](https://bitbucket.org/vdjserver/vdjserver-web-backbone/): (branch: v1-community) a web application that end users can interact with.
+ * [vdjserver-community](https://bitbucket.org/vdjserver/vdjserver-web-backbone/): (branch: v2-develop) VDJServer V2 Community Data Portal.
+ * [vdjserver-web-nginx](https://bitbucket.org/vdjserver/vdjserver-web-nginx/): (branch: v1-community-v2) a webserver configured for vdj API/webapp needs.
  * [vdjserver-doc](https://bitbucket.org/vdjserver/vdjserver-doc/): documentation for VDJServer and associated tools.
 
-All 4 components need to be deployed in order for VDJServer to function properly.
+All components need to be deployed in order for VDJServer to function properly.
 
 ##Configuration Procedure
 

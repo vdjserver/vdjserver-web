@@ -1,0 +1,56 @@
+# VDJServer Docker Orchestration
+
+version: '2'
+
+services:
+    vdj-nginx:
+        build: ./../../vdjserver-web-nginx
+        container_name: vdj-nginx
+        image: vdj-nginx:v1-community-v2
+        depends_on:
+            - vdj-api
+            - vdj-backbone
+            - vdj-community
+            - vdj-doc
+        networks:
+            - default
+        ports:
+            - "8080:8080"
+        volumes_from:
+            - vdj-backbone
+            - vdj-community
+            - vdj-doc
+
+    vdj-api:
+        build: ./../../vdjserver-web-api
+        container_name: vdj-api
+        env_file: ./../../vdjserver-web-api/.env
+        expose:
+            - "8081"
+        image: vdj-api:v1-community-v2
+        networks:
+            - default
+        volumes:
+            - ./../../vdjserver-web-api/redis:/vdjserver-web-api/redis
+
+    vdj-backbone:
+        build: ./../../vdjserver-web-backbone
+        container_name: vdj-backbone
+        image: vdj-backbone:v1-community-v2
+        volumes:
+            - ./../../vdjserver-web-backbone/docker/environment-config/run:/var/www/html/vdjserver-backbone/dist/scripts/config/
+
+    vdj-community:
+        build: ./../../vdjserver-community
+        container_name: vdj-community
+        image: vdj-community:v1-community-v2
+        volumes:
+            - ./../../vdjserver-community/docker/environment-config/run:/var/www/html/vdjserver-v2-web-backbone/app/scripts/config/
+
+    vdj-doc:
+        container_name: vdj-doc
+        image: vdjserver/doc
+
+networks:
+    default:
+        driver: bridge
