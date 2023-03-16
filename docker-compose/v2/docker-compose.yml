@@ -6,7 +6,7 @@ services:
     vdj-nginx:
         build: ./../../vdjserver-web-nginx
         container_name: vdj-nginx
-        image: vdj-nginx:v2-develop
+        image: vdjserver/vdj-nginx:v2-develop
         depends_on:
             - vdj-api
             - vdj-backbone
@@ -25,7 +25,7 @@ services:
         env_file: ./../../vdjserver-web-api/.env
         expose:
             - "8081"
-        image: vdj-api:v2-develop
+        image: vdjserver/vdj-api:v2-develop
         networks:
             - default
         volumes:
@@ -34,7 +34,7 @@ services:
     vdj-backbone:
         build: ./../../vdjserver-web-backbone
         container_name: vdj-backbone
-        image: vdj-backbone:v2-develop
+        image: vdjserver/vdj-backbone:v2-develop
         volumes:
             - ./../../vdjserver-web-backbone/docker/environment-config/v2:/var/www/html/vdjserver-v2-web-backbone/app/scripts/config/
 
