@@ -7,3 +7,6 @@
 [submodule "vdjserver-web-nginx"]
 	path = vdjserver-web-nginx
 	url = https://bitbucket.org/vdjserver/vdjserver-web-nginx.git
+[submodule "vdjserver-plumber"]
+	path = vdjserver-plumber
+	url = https://bitbucket.org/vdjserver/vdjserver-plumber
