@@ -1,0 +1,12 @@
+[submodule "vdjserver-plumber"]
+	path = vdjserver-plumber
+	url = https://github.com/vdjserver/vdjserver-plumber.git
+[submodule "vdjserver-web-nginx"]
+	path = vdjserver-web-nginx
+	url = https://github.com/vdjserver/vdjserver-web-nginx.git
+[submodule "vdjserver-web-backbone"]
+	path = vdjserver-web-backbone
+	url = https://github.com/vdjserver/vdjserver-web-backbone.git
+[submodule "vdjserver-web-api"]
+	path = vdjserver-web-api
+	url = https://github.com/vdjserver/vdjserver-web-api.git
