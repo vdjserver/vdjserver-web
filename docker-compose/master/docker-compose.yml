@@ -1,0 +1,75 @@
+# VDJServer Docker Orchestration
+
+services:
+    vdj-redis:
+        container_name: vdj-redis
+        image: redis:7.2.0-alpine
+        restart: always
+        networks:
+            - default
+        ports:
+            - "6379:6379"
+        command: redis-server --save 60 1 --loglevel warning --appendonly yes
+        volumes:
+            - ./../../vdjserver-web-api/redis:/data
+
+    vdj-nginx:
+        build: ./../../vdjserver-web-nginx
+        container_name: vdj-nginx
+        image: vdjserver/vdj-nginx:master
+        depends_on:
+            - vdj-api
+            - vdj-backbone
+#            - vdj-doc
+        networks:
+            - default
+        ports:
+            - "8080:8080"
+        volumes_from:
+            - vdj-backbone
+            - vdj-plumber
+#            - vdj-doc
+
+    vdj-api:
+        build: ./../../vdjserver-web-api
+        container_name: vdj-api
+        env_file: ./../../vdjserver-web-api/.env
+        expose:
+            - "8081"
+        image: vdjserver/vdj-api:master
+        depends_on:
+            - vdj-redis
+        networks:
+            - default
+        volumes:
+# local data path
+            - ./../../../data/vdjZ:/vdjZ
+# TACC data path
+#            - /vdjZ:/vdjZ
+
+    vdj-backbone:
+        build: ./../../vdjserver-web-backbone
+        container_name: vdj-backbone
+        image: vdjserver/vdj-backbone:master
+        volumes:
+            - ./../../vdjserver-web-backbone/docker/environment-config/v2:/var/www/html/vdjserver-v2-web-backbone/app/scripts/config/
+
+    vdj-plumber:
+        build: ./../../vdjserver-plumber
+        container_name: vdj-plumber
+        image: vdjserver/vdj-plumber:master
+        volumes:
+            - ./../../../data/image_cache:/image_cache
+# local data path
+            - ./../../../data/vdjZ:/vdjZ
+# TACC data path
+#            - /vdjZ:/vdjZ
+
+
+#    vdj-doc:
+#        container_name: vdj-doc
+#        image: vdjserver/doc
+
+networks:
+    default:
+        driver: bridge
