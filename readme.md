@@ -40,6 +40,15 @@ All configuration procedures are based upon docker containers of the components.
 
 ### Configuring vdjserver-web-api
 
+Sometimes there are issues with permissions on the redis directory, which
+will prevent builds and/or startups. If such happens, completely delete the
+directory then mkdir with the appropriate user.
+
+```
+$ rm -rf vdjserver-web-api/redis
+$ mkdir vdjserver-web-api/redis
+```
+
 There is one configuration file that needs to be set up to run the API:
 
  * vdjserver-web-api/.env
@@ -104,9 +113,10 @@ $ docker compose down
 ### Configuring systemd
 
 You will need to set up the VDJServer systemd service file on your host machine in order to have the VDJ web infrastructure automatically restart when the host machine reboots.
+Verify the paths point to the appropriate docker-compose directory.
 
 ```
-sudo cp host/systemd/vdjserver.service /etc/systemd/systems/vdjserver.service
+sudo cp host/systemd/vdjserver.service /etc/systemd/system/vdjserver.service
 
 sudo systemctl daemon-reload
 
