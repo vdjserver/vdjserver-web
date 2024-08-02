@@ -1,7 +1,5 @@
 # VDJServer Docker Orchestration
 
-version: '2'
-
 services:
     vdj-nginx:
         logging:
@@ -12,9 +10,5 @@ services:
             driver: "syslog"
 
     vdj-backbone:
-        logging:
-            driver: "syslog"
-
-    vdj-doc:
         logging:
             driver: "syslog"
