@@ -1,7 +1,5 @@
 # VDJServer Docker Orchestration
 
-version: '3'
-
 services:
     vdj-redis:
         container_name: vdj-redis
