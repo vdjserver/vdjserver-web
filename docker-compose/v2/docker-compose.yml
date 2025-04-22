@@ -16,11 +16,10 @@ services:
     vdj-nginx:
         build: ./../../vdjserver-web-nginx
         container_name: vdj-nginx
-        image: vdjserver/vdj-nginx:v2-develop
+        image: vdjserver/vdj-nginx:v2
         depends_on:
             - vdj-api
             - vdj-backbone
-#            - vdj-doc
         networks:
             - default
         ports:
@@ -28,7 +27,6 @@ services:
         volumes_from:
             - vdj-backbone
             - vdj-plumber
-#            - vdj-doc
 
     vdj-api:
         build: ./../../vdjserver-web-api
@@ -36,39 +34,37 @@ services:
         env_file: ./../../vdjserver-web-api/.env
         expose:
             - "8081"
-        image: vdjserver/vdj-api:v2-develop
+        image: vdjserver/vdj-api:v2
         depends_on:
             - vdj-redis
         networks:
             - default
         volumes:
+            - ${DATA_ROOT}:/vdjZ
 # local data path
-            - ./../../../data/vdjZ:/vdjZ
+#            - ./../../../data/vdjZ:/vdjZ
 # TACC data path
 #            - /vdjZ:/vdjZ
 
     vdj-backbone:
         build: ./../../vdjserver-web-backbone
         container_name: vdj-backbone
-        image: vdjserver/vdj-backbone:v2-develop
+        image: vdjserver/vdj-backbone:v2
         volumes:
             - ./../../vdjserver-web-backbone/docker/environment-config/v2:/var/www/html/vdjserver-v2-web-backbone/app/scripts/config/
 
     vdj-plumber:
         build: ./../../vdjserver-plumber
         container_name: vdj-plumber
-        image: vdjserver/vdj-plumber:v2-develop
+        image: vdjserver/vdj-plumber:v2
         volumes:
-            - ./../../../data/image_cache:/image_cache
+            - ${DATA_ROOT}:/vdjZ
+#            - ./../../../data/image_cache:/image_cache
 # local data path
-            - ./../../../data/vdjZ:/vdjZ
+#            - ./../../../data/vdjZ:/vdjZ
 # TACC data path
 #            - /vdjZ:/vdjZ
 
-
-#    vdj-doc:
-#        container_name: vdj-doc
-#        image: vdjserver/doc
 
 networks:
     default:
