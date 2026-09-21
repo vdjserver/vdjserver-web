@@ -26,7 +26,7 @@ services:
             - "8080:8080"
         volumes_from:
             - vdj-backbone
-            - vdj-plumber
+#             - vdj-plumber
 
     vdj-api:
         build: ./../../vdjserver-web-api
@@ -53,12 +53,12 @@ services:
         volumes:
             - ./../../vdjserver-web-backbone/docker/environment-config/v2:/var/www/html/vdjserver-v2-web-backbone/app/scripts/config/
 
-    vdj-plumber:
-        build: ./../../vdjserver-plumber
-        container_name: vdj-plumber
-        image: vdjserver/vdj-plumber:v2
-        volumes:
-            - ${DATA_ROOT}:/vdjZ
+#     vdj-plumber:
+#         build: ./../../vdjserver-plumber
+#         container_name: vdj-plumber
+#         image: vdjserver/vdj-plumber:v2
+#         volumes:
+#             - ${DATA_ROOT}:/vdjZ
 #            - ./../../../data/image_cache:/image_cache
 # local data path
 #            - ./../../../data/vdjZ:/vdjZ
